@@ -1,0 +1,63 @@
+diff -u bliss-0.50/bliss.cc bliss-0.50-modified/bliss.cc
+--- bliss-0.50/bliss.cc	2008-10-08 00:47:02.000000000 +1100
++++ bliss-0.50-modified/bliss.cc	2011-01-28 11:44:43.862913200 +1100
+@@ -31,7 +31,7 @@
+ {
+   const char *program_name;
+   
+-  program_name = rindex(argv0, '/');
++  program_name = argv0; //rindex(argv0, '/');
+   
+   if(program_name) program_name++;
+   else program_name = argv0;
+Only in bliss-0.50-modified: bliss.exe
+Only in bliss-0.50-modified: libbliss.a
+diff -u bliss-0.50/timer.cc bliss-0.50-modified/timer.cc
+--- bliss-0.50/timer.cc	2008-10-08 00:47:03.000000000 +1100
++++ bliss-0.50-modified/timer.cc	2011-01-28 11:44:44.409788200 +1100
+@@ -1,5 +1,5 @@
+-#include <unistd.h>
+-#include <sys/times.h>
++//#include <unistd.h>
++//#include <sys/times.h>
+ #include "timer.hh"
+ 
+ /*
+@@ -9,7 +9,7 @@
+ 
+ namespace bliss {
+ 
+-static const double numTicksPerSec = (double)(sysconf(_SC_CLK_TCK));
++//static const double numTicksPerSec = (double)(sysconf(_SC_CLK_TCK));
+ 
+ Timer::Timer()
+ {
+@@ -18,17 +18,20 @@
+ 
+ void Timer::reset()
+ {
++/*
+   struct tms clkticks;
+ 
+   times(&clkticks);
+   start_time =
+     ((double) clkticks.tms_utime + (double) clkticks.tms_stime) /
+     numTicksPerSec;
++*/
+ }
+ 
+ 
+ double Timer::get_duration()
+ {
++/*
+   struct tms clkticks;
+ 
+   times(&clkticks);
+@@ -36,6 +39,7 @@
+     ((double) clkticks.tms_utime + (double) clkticks.tms_stime) /
+     numTicksPerSec;
+   return intermediate - start_time;
++*/
+ }
+ 
+ } // namespace bliss
